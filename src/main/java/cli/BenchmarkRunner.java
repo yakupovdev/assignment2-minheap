@@ -34,7 +34,7 @@ public class BenchmarkRunner {
      */
     public static void main(String[] args) throws IOException {
         List<Integer> sizes = args.length == 0
-                ? List.of(100, 1000, 5000, 10000)
+                ? List.of(100, 1000, 10000, 100000)
                 : parseSizes(args);
 
         Path out = Path.of("benchmarks.csv");
@@ -43,7 +43,7 @@ public class BenchmarkRunner {
         }
 
         List<String> lines = new ArrayList<>();
-        lines.add("n,distribution,time(ms),comparisons,swaps,arrayAccesses,allocations");
+        lines.add("n,distribution,time(ms),comparisons,swaps,arrayAccesses,allocations,recursiveCalls");
 
         for (int n : sizes) {
             for (String dist : List.of("random", "sorted", "reverse", "nearly-sorted")) {
@@ -57,12 +57,13 @@ public class BenchmarkRunner {
                 long elapsed = System.currentTimeMillis() - start;
 
                 lines.add(String.format(Locale.US,
-                        "%d,%s,%d,%d,%d,%d,%d",
+                        "%d,%s,%d,%d,%d,%d,%d,%d",
                         n, dist, elapsed,
                         tracker.getComparisons(),
                         tracker.getSwaps(),
                         tracker.getArrayAccesses(),
-                        tracker.getAllocations()));
+                        tracker.getAllocations(),
+                        tracker.getRecursiveCalls()));
 
                 System.out.printf("n=%d dist=%s time=%dms metrics=%s%n",
                         n, dist, elapsed, tracker);

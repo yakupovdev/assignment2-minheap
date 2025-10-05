@@ -231,6 +231,7 @@ public class MinHeap<T extends Comparable<? super T>> {
     private void siftUp(int idx) {
         int i = idx;
         while (i > 0) {
+            tracker.addRecursiveCall(); // ← добавлено
             int p = parent(i);
             tracker.addArrayAccess();
             tracker.addArrayAccess();
@@ -246,6 +247,7 @@ public class MinHeap<T extends Comparable<? super T>> {
         int i = idx;
         int n = heap.size();
         while (true) {
+            tracker.addRecursiveCall(); // ← добавлено
             int l = left(i);
             int r = right(i);
             int smallest = i;

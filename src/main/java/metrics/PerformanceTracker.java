@@ -14,7 +14,7 @@ public class PerformanceTracker {
     private long swaps;
     private long arrayAccesses;
     private long allocations;
-
+    private long recursiveCalls;
     /**
      * Creates a new tracker with all counters set to zero.
      */
@@ -48,6 +48,13 @@ public class PerformanceTracker {
      */
     public void addAllocation() {
         allocations++;
+    }
+
+    /**
+     * Increments the number of recursiveCalls by one.
+     */
+    public void addRecursiveCall() {
+        recursiveCalls++;
     }
 
     /**
@@ -87,6 +94,14 @@ public class PerformanceTracker {
     }
 
     /**
+     * Returns the total number of recursiveCalls recorded.
+     *
+     * @return the recursiveCalls
+     */
+    public long getRecursiveCalls() {
+        return recursiveCalls;
+    }
+    /**
      * Resets all performance counters to zero.
      */
     public void reset() {
@@ -94,6 +109,7 @@ public class PerformanceTracker {
         swaps = 0;
         arrayAccesses = 0;
         allocations = 0;
+        recursiveCalls = 0;
     }
 
     /**
@@ -106,6 +122,7 @@ public class PerformanceTracker {
         return "comparisons=" + comparisons +
                 ", swaps=" + swaps +
                 ", arrayAccesses=" + arrayAccesses +
-                ", allocations=" + allocations;
+                ", allocations=" + allocations +
+                ", recursiveCalls=" + recursiveCalls;
     }
 }
